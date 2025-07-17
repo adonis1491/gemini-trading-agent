@@ -1,0 +1,5 @@
+{
+  "name": "Gemini Trading Agent",
+  "description": "An application that uses the Gemini API with Google Search grounding to act as a trading agent, providing stock market analysis.",
+  "requestFramePermissions": []
+}
