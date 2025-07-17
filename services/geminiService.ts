@@ -1,5 +1,4 @@
-/// <reference types="vite/client" />
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { 
   StockAnalysisResult, 
   GroundingSource,
@@ -19,10 +18,10 @@ import {
   AgentStatus
 } from '../types';
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 if (!API_KEY) {
-  throw new Error("API_KEY environment variable not set");
+  throw new Error("VITE_GEMINI_API_KEY environment variable not set");
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
@@ -95,10 +94,7 @@ const runSynthesisAgent = async <T>(
             },
           });
       
-          if (!response.text) {
-            throw new Error("No response text received from Gemini API.");
-          }
-          const result = JSON.parse(response.text) as T;
+          const result = JSON.parse((response.text ?? "").trim()) as T;
           return { result };
     } catch (error) {
         console.error(`在指令為 "${systemInstruction}" 的綜合代理人中發生錯誤`, error);
