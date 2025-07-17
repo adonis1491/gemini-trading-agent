@@ -1,4 +1,5 @@
-import { GoogleGenAI, Type } from "@google/genai";
+/// <reference types="vite/client" />
+import { GoogleGenAI } from "@google/genai";
 import { 
   StockAnalysisResult, 
   GroundingSource,
@@ -18,7 +19,7 @@ import {
   AgentStatus
 } from '../types';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 if (!API_KEY) {
   throw new Error("API_KEY environment variable not set");
@@ -52,7 +53,7 @@ ${JSON.stringify(responseSchema, null, 2)}
       },
     });
 
-    let jsonString = response.text;
+    let jsonString = response.text ?? "";
     
     // The model sometimes wraps the JSON in markdown. Extract it.
     const match = jsonString.match(/```json\n([\s\S]*?)\n```/);
@@ -94,6 +95,9 @@ const runSynthesisAgent = async <T>(
             },
           });
       
+          if (!response.text) {
+            throw new Error("No response text received from Gemini API.");
+          }
           const result = JSON.parse(response.text) as T;
           return { result };
     } catch (error) {
