@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { runTradingAgentAnalysis } from './services/geminiService';
 import { StockAnalysisResult, AnalysisStatus, AgentStatus } from './types';
 import AnalysisCard from './components/AnalysisCard';
-import Spinner from './components/Spinner';
 import { ChartBarIcon, ScaleIcon, ChatBubbleOvalLeftEllipsisIcon, NewspaperIcon, UserCircleIcon, UsersIcon } from './components/icons';
 
 const initialStatuses: AnalysisStatus = {

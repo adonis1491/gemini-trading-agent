@@ -18,6 +18,16 @@ import {
   AgentStatus
 } from '../types';
 
+// Add this type declaration at the top of your file or in a global .d.ts file if not already present
+interface ImportMetaEnv {
+  VITE_GEMINI_API_KEY: string;
+}
+
+// Type augmentation for ImportMeta to include 'env'
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 if (!API_KEY) {
